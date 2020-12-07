@@ -14,11 +14,6 @@ export var sortState = SORT_STATE.NULL
 func _ready():
 	_ChangeSortState(SORT_STATE.NULL)
 	connect("pressed", self, "_on_Button_pressed")
-	pass # Replace with function body.
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 
 func _on_Button_pressed():
 	match sortState:
@@ -29,7 +24,6 @@ func _on_Button_pressed():
 		SORT_STATE.DESCEND: 
 			_ChangeSortState(SORT_STATE.ASCEND)
 	emit_signal("COLUMN_SORT", self)
-	pass # Replace with function body.
 
 func _ChangeSortState(newStatus):
 	sortState = newStatus
@@ -41,7 +35,6 @@ func _ChangeSortState(newStatus):
 		$TextureRect.flip_v = false
 	else: 
 		$TextureRect.flip_v = true	
-	pass
-	
+
 func _SortStateNULL():
 	_ChangeSortState(SORT_STATE.NULL)
