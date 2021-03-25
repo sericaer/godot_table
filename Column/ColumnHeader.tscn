@@ -2,7 +2,6 @@
 
 [ext_resource path="res://addons/godot_table/Column/ColumnHeader.gd" type="Script" id=3]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.239216, 0.266667, 0.34902, 1 )
 border_width_left = 1

@@ -2,30 +2,38 @@ tool
 
 extends VBoxContainer
 
+class_name TableContainer
+
+signal CLICK_ROW(value)
+
 var v_scrollbar : VScrollBar
 var headerPanelPlus : Panel
 var headerContainer : HeaderContainer
 var dataContainer : DataContainer
+var rowButtonContainer : RowButtonContainer
 
 var cmp = MyCustomSorter.new()
+
 
 func _on_vscrollbar_visibility_changed():
 	if v_scrollbar.visible == true:
 		headerPanelPlus.rect_min_size.x = v_scrollbar.rect_size.x
 	else:
 		headerPanelPlus.rect_min_size.x = 0
-
+		
+func init_tree():
+	headerPanelPlus = self.get_node("HBoxContainer/PanelPlus")
+	headerContainer = self.get_node("HBoxContainer/HeaderContainer")
+	dataContainer = self.get_node("ScrollContainer/PanelContainer/DataContainer")
+	rowButtonContainer = self.get_node("ScrollContainer/PanelContainer/RowButtonContainer")
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	v_scrollbar = self.get_node("ScrollContainer").get_v_scrollbar()
-	headerPanelPlus = self.get_node("HBoxContainer/PanelPlus")
-	headerContainer = self.get_node("HBoxContainer/HeaderContainer")
-	dataContainer = self.get_node("ScrollContainer/DataContainer")
-
 	v_scrollbar.connect("visibility_changed", self, "_on_vscrollbar_visibility_changed")
 	for header in headerContainer.get_children():
 		header.connect("COLUMN_SORT", self, "_sort_by_column")
-
+	
 func _sort_by_column(select_column):
 	for column in headerContainer.get_children():
 		if column != select_column:
@@ -36,6 +44,22 @@ func _sort_by_column(select_column):
 
 	dataContainer.sort_column(cmp)
 
+func set_template_path(column_header_path, data_template_path):
+	print(headerContainer)
+	headerContainer.column_header_path = column_header_path
+	dataContainer.template_path = data_template_path
+
+func set_header(column_headers):
+	headerContainer.clear_headers()
+	headerContainer.add_headers(column_headers)
+
+func set_rows(new_rows : Array, column_size):
+	dataContainer.clear_rows()
+	dataContainer.set_rows(new_rows, column_size);
+	rowButtonContainer.set_rows(new_rows.size());
+	for rowButton in rowButtonContainer.get_children():
+		rowButton.connect("pressed", self, "_on_RowButtonContainer_CLICK_ROW", [int(rowButton.name)])
+	
 class MyCustomSorter:
 	var sort_index = -1
 	var sort_state = -1
@@ -59,3 +83,7 @@ class MyCustomSorter:
 		if a[sort_index] > b[sort_index]:
 			return true
 		return false
+
+
+func _on_RowButtonContainer_CLICK_ROW(index):
+	emit_signal("CLICK_ROW", dataContainer.get_row_data(index))

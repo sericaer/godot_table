@@ -28,3 +28,6 @@ func sort_column(cmp):
 	datas.sort_custom(cmp, "sort")
 	clear_rows()
 	set_rows(datas, self.columns)
+
+func get_row_data(index):
+	return datas[index]

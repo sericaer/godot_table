@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/godot_table/HeaderContainer.gd" type="Script" id=1]
 [ext_resource path="res://addons/godot_table/TableContainer.gd" type="Script" id=2]
 [ext_resource path="res://addons/godot_table/DataContainer.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot_table/RowButtonContainer.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="TableContainer" type="VBoxContainer"]
 margin_left = 239.652
@@ -37,9 +40,23 @@ margin_right = 40.0
 margin_bottom = 40.0
 size_flags_vertical = 3
 
-[node name="DataContainer" type="GridContainer" parent="ScrollContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ScrollContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="RowButtonContainer" type="VBoxContainer" parent="ScrollContainer/PanelContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+custom_constants/separation = 0
+script = ExtResource( 4 )
+
+[node name="DataContainer" type="GridContainer" parent="ScrollContainer/PanelContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = -1

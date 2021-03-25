@@ -1,7 +1,0 @@
-[plugin]
-
-name="GodotTable"
-description="A table control which can be sort and select for Godot"
-author="sericaer@outlook.com"
-version="0.1.0"
-script="plugin.gd"
