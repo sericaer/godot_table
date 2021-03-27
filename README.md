@@ -8,7 +8,7 @@ A table control which can be sort and dynamic update for Godot
 
 ### create table in editor
 
-![image](https://github.com/sericaer/godot_table/blob/main/gif/creat_table.gif)
+![image](https://github.com/sericaer/godot_table/blob/main/gif/create_table.gif)
 
 
 
