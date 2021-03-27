@@ -1,19 +1,20 @@
 # godot_table
-A table control which can be sort and dynamic updata for Godot
 
-![image](https://github.com/sericaer/godot_table/blob/main/demo.gif)
+A table control which can be sort and dynamic update for Godot
 
 
 
 ## Usage
 
-### add table in editor
+### create table in editor
+
+![image](https://github.com/sericaer/godot_table/blob/main/gif/creat_table.gif)
 
 
 
 ### select row
 
-
+![image](https://github.com/sericaer/godot_table/blob/main/gif/select_row.gif)
 
 
 
