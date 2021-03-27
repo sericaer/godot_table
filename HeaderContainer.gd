@@ -2,8 +2,6 @@ tool
 
 extends GridContainer
 
-class_name  HeaderContainer
-
 export var column_header_path = ""
 
 func clear_headers():

@@ -1,8 +1,6 @@
 tool
 extends GridContainer
 
-class_name DataContainer
-
 export var template_path = ""
 export var datas = []
 
