@@ -4,22 +4,23 @@ extends GridContainer
 
 export var column_header_path = ""
 
-func clear_headers():
-	for child in self.get_children():
-		self.remove_child(child)
-		
-func add_headers(column_headers):
-	if column_headers.size() == 0:
-		return
+func update_headers(column_headers):
 	self.columns = column_headers.size()
-	for n in range(column_headers.size()):
-		add_new_column(n, column_headers[n])
+	var curr_head_count = self.get_child_count()
+	for n in range(curr_head_count, column_headers.size()):
+		add_new_column(n)
+	for n in range(column_headers.size(), curr_head_count):
+		self.remove_child(self.get_child(n))
+	print(self.get_child_count())
+	var children = self.get_children() as Array
+	for i in column_headers.size():
+		children[i].text = column_headers[i]
 		
-func add_new_column(index, column_name):
+func add_new_column(index):
 	var column_header_obj = load(column_header_path).instance()
 	column_header_obj.index = index
-	column_header_obj.text = column_name
 	column_header_obj.name = "COLUM_%d"%[index]
 	self.add_child(column_header_obj, true)
 	column_header_obj.owner = self
 	return column_header_obj
+
