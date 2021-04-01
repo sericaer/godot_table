@@ -3,50 +3,38 @@ extends PanelContainer
 
 signal CLICK_ROW(value)
 
-#const TableContainer = preload("res://addons/godot_table/TableContainer.gd")
-const TableData = preload("TableData.gd")
 
 # ................... Export Shared Variables ..................
-export (String, FILE, "*.tscn") var column_header_path = "res://addons/godot_table/Column/ColumnHeader.tscn" setget set_column_header_path
-export (String, FILE, "*.tscn") var data_template_path = "res://addons/godot_table/Data/Data.tscn" setget set_data_template_path
+export (String, FILE, "*.tscn") var column_header_path = "res://addons/godot_table/Column/ColumnHeader.tscn"
+export (String, FILE, "*.tscn") var data_template_path = "res://addons/godot_table/Data/Data.tscn"
 export (Array, String) var column_headers setget set_column_headers
 export(Array, Array, String) var row_strings setget set_row_strings
 
-var table_data  = TableData.new()
-
-func set_column_header_path(path : String):
-	column_header_path = path
-
-func set_data_template_path(path : String):
-	table_data.set_data_template_path(path)
-	data_template_path = path
+var table_data  = preload("TableData.gd").new()
+var tableContainer  = preload("TableContainer.tscn").instance()
 		
 func set_column_headers(new_header):
 	column_headers = new_header
 	if table_data.get_column_size() != column_headers.size():
 		table_data.set_column_size(column_headers.size())
-		update_row_strings()
+		_update_row_strings()
 	tableContainer.show_header(column_headers, column_header_path)
 	
 func set_row_strings(new_row_strings : Array):
-	if Engine.editor_hint:
-		print("Engine.editor_hint")
-	print("set_row_strings")
 	table_data.set_string_data(new_row_strings)
-	update_row_strings()
-	
-		
-func update_row_strings():
-	row_strings = table_data.get_string_data()
-	property_list_changed_notify()
-	tableContainer.show_data(table_data)
+	_update_row_strings()
 
-var tableContainer  = preload("TableContainer.tscn").instance()
-#
+func set_rows_data(new_row_data : Array):
+	table_data.set_row_data(new_row_data)
+	_update_row_strings()
 	
 func _ready():
-	print("_ready")
 	self.add_child(tableContainer, true)
+	
+func _update_row_strings():
+	row_strings = table_data.get_string_data()
+	property_list_changed_notify()
+	tableContainer.show_data(table_data, data_template_path)
 	
 #	tableContainer.init_tree()
 #	tableContainer.set_template_path(column_header_path, data_template_path)

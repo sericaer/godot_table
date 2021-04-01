@@ -31,10 +31,9 @@ extends GridContainer
 
 func show_rows(labels : Array):
 	for child in self.get_children():
+		print("remove child", child)
 		self.remove_child(child)
 	for label_row in  labels:
-		print(label_row)
 		for label in label_row:
-			print(label)
 			self.add_child(label)
 	

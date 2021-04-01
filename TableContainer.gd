@@ -2,35 +2,29 @@ tool
 
 extends VBoxContainer
 
-const HeaderContainer = preload("res://addons/godot_table/HeaderContainer.gd")
-const DataContainer2 = preload("res://addons/godot_table/DataContainer2.gd")
 #
 #signal CLICK_ROW(value)
 #
-var v_scrollbar : VScrollBar
-var headerPanelPlus : Panel
-var headerContainer : HeaderContainer
-var dataContainer2 : DataContainer2
+
 #
 #var cmp = MyCustomSorter.new()
 #
-#func _on_vscrollbar_visibility_changed():
-#	if v_scrollbar.visible == true:
-#		headerPanelPlus.rect_min_size.x = v_scrollbar.rect_size.x
-#	else:
-#		headerPanelPlus.rect_min_size.x = 0
-#
+func _on_vscrollbar_visibility_changed():
+	if _scrollbar().visible == true:
+		_header_panel_plus().rect_min_size.x = _scrollbar().rect_size.x
+	else:
+		_header_panel_plus().rect_min_size.x = 0
 
-func _ready():
-	headerPanelPlus = $HBoxContainer/PanelPlus
-	headerContainer = $HBoxContainer/HeaderContainer
-	dataContainer2 = $ScrollContainer/PanelContainer
+
+#func _ready():
+#	headerPanelPlus = $HBoxContainer/PanelPlus
+#	headerContainer = $HBoxContainer/HeaderContainer
+#	dataContainer2 = $ScrollContainer/PanelContainer
 #
 ## Called when the node enters the scene tree for the first time.
-#func _ready():
-#	v_scrollbar = self.get_node("ScrollContainer").get_v_scrollbar()
-#	v_scrollbar.connect("visibility_changed", self, "_on_vscrollbar_visibility_changed")
-#	for header in headerContainer.get_children():
+func _ready():
+	_scrollbar().connect("visibility_changed", self, "_on_vscrollbar_visibility_changed")
+#	for header in $HBoxContainer/HeaderContainer.get_children():
 #		header.connect("COLUMN_SORT", self, "_sort_by_column")
 #
 #func _sort_by_column(select_column):
@@ -43,16 +37,27 @@ func _ready():
 #
 
 func set_data_template_path(path):
-	$ScrollContainer/PanelContainer.template_path = path
+	_data_container().template_path = path
 #
 func show_header(column_headers, template_path):
-	$HBoxContainer/HeaderContainer.update_headers(column_headers, template_path)
-#	$ScrollContainer/PanelContainer.set_column_size(column_headers.size())
+	_header_container().update_headers(column_headers, template_path)
+	_data_container().set_column_size(column_headers.size())
 
-func show_data(table_data):
-	$ScrollContainer/PanelContainer.show_rows(table_data)
-	pass
+func show_data(table_data, data_template_path):
+	_data_container().show_rows(table_data, data_template_path)
 	
+func _scrollbar():
+	return $ScrollContainer.get_v_scrollbar()
+
+func _header_panel_plus():
+	return $HBoxContainer/PanelPlus
+	
+func _data_container():
+	return $ScrollContainer/PanelContainer
+
+func _header_container():
+	return $HBoxContainer/HeaderContainer
+		
 #func show_rows(new_rows : Array):
 #	dataContainer2.clear_rows()
 #	dataContainer2.show_rows(new_rows);
