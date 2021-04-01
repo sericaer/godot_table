@@ -42,18 +42,15 @@ func _ready():
 #	#dataContainer2.sort_column(cmp)
 #
 
-func set_column_header_path(path):
-	$HBoxContainer/HeaderContainer.column_header_path = path
-
 func set_data_template_path(path):
 	$ScrollContainer/PanelContainer.template_path = path
 #
-func show_header(column_headers):
-	$HBoxContainer/HeaderContainer.update_headers(column_headers)
-	$ScrollContainer/PanelContainer.set_column_size(column_headers.size())
+func show_header(column_headers, template_path):
+	$HBoxContainer/HeaderContainer.update_headers(column_headers, template_path)
+#	$ScrollContainer/PanelContainer.set_column_size(column_headers.size())
 
 func show_data(table_data):
-#	dataContainer2.show_rows(table_data)
+	$ScrollContainer/PanelContainer.show_rows(table_data)
 	pass
 	
 #func show_rows(new_rows : Array):

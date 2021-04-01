@@ -15,9 +15,7 @@ export(Array, Array, String) var row_strings setget set_row_strings
 var table_data  = TableData.new()
 
 func set_column_header_path(path : String):
-	if tableContainer != null:
-		tableContainer.set_column_header_path(path)
-		column_header_path = path
+	column_header_path = path
 
 func set_data_template_path(path : String):
 	table_data.set_data_template_path(path)
@@ -28,46 +26,27 @@ func set_column_headers(new_header):
 	if table_data.get_column_size() != column_headers.size():
 		table_data.set_column_size(column_headers.size())
 		update_row_strings()
-#	tableContainer.show_header(column_headers)
+	tableContainer.show_header(column_headers, column_header_path)
 	
 func set_row_strings(new_row_strings : Array):
+	if Engine.editor_hint:
+		print("Engine.editor_hint")
 	print("set_row_strings")
 	table_data.set_string_data(new_row_strings)
 	update_row_strings()
 	
-#	row_strings = new_row_strings
-#	_fill_default_row_data()
-	
-#func _fill_default_row_data():
-#	for one_row in row_strings:
-#		for i in range(one_row.size(), column_headers.size()):
-#			one_row.append("--")
 		
 func update_row_strings():
 	row_strings = table_data.get_string_data()
 	property_list_changed_notify()
-	if tableContainer != null:
-		tableContainer.show_data(table_data)
-	
-# Scenes and Reosurces ......................
-var preload_tableContainer : PackedScene = preload("TableContainer.tscn")
-#
-#var RowData = preload("RowData.gd")
-#
-## Shared Variables .........................
-var tableContainer
-#
-#var valid_row_count = 0
-#
-#var _row_datas : Array 
+	tableContainer.show_data(table_data)
 
+var tableContainer  = preload("TableContainer.tscn").instance()
+#
+	
 func _ready():
 	print("_ready")
-	tableContainer = preload_tableContainer.instance()
 	self.add_child(tableContainer, true)
-	tableContainer.name = "tableContainer"
-	
-	tableContainer.set_column_header_path(column_header_path)
 	
 #	tableContainer.init_tree()
 #	tableContainer.set_template_path(column_header_path, data_template_path)
