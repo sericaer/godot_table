@@ -3,7 +3,6 @@ extends PanelContainer
 
 signal CLICK_ROW(value)
 
-
 # ................... Export Shared Variables ..................
 export (String, FILE, "*.tscn") var column_header_path = "res://addons/godot_table/Column/ColumnHeader.tscn"
 export (String, FILE, "*.tscn") var data_template_path = "res://addons/godot_table/Data/Data.tscn"
@@ -34,8 +33,15 @@ func _ready():
 func _update_row_strings():
 	row_strings = table_data.get_string_data()
 	property_list_changed_notify()
+	_button_pressed_signal_connect()
+
+func _button_pressed_signal_connect():
 	tableContainer.show_data(table_data, data_template_path)
-	
+	for row_data in table_data.get_row_data():
+		var string_datas = row_data.get_data()
+		var button : Button = row_data.get_button()
+		button.connect("pressed", self, "_on_RowButtonContainer_CLICK_ROW", [string_datas])
+		
 #	tableContainer.init_tree()
 #	tableContainer.set_template_path(column_header_path, data_template_path)
 ##
@@ -79,5 +85,5 @@ func _update_row_strings():
 #			rows.append(row_data.get_datas())
 #		tableContainer.show_rows(_row_datas)
 #
-#func _on_RowButtonContainer_CLICK_ROW(value):
-#	emit_signal("CLICK_ROW", value)
+func _on_RowButtonContainer_CLICK_ROW(value):
+	emit_signal("CLICK_ROW", value)

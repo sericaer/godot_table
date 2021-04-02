@@ -3,10 +3,6 @@ tool
 extends VBoxContainer
 
 #
-#signal CLICK_ROW(value)
-#
-
-#
 #var cmp = MyCustomSorter.new()
 #
 func _on_vscrollbar_visibility_changed():
@@ -45,7 +41,7 @@ func show_header(column_headers, template_path):
 
 func show_data(table_data, data_template_path):
 	_data_container().show_rows(table_data, data_template_path)
-	
+		
 func _scrollbar():
 	return $ScrollContainer.get_v_scrollbar()
 
@@ -85,8 +81,3 @@ func _header_container():
 #		if a[sort_index] > b[sort_index]:
 #			return true
 #		return false
-#
-#
-#func _on_RowButtonContainer_CLICK_ROW(index):
-#	#emit_signal("CLICK_ROW", dataContainer.get_row_data(index))
-#	pass

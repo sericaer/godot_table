@@ -60,3 +60,6 @@ func get_buttons():
 
 func set_data_template_path(path):
 	_data_template_path = path
+
+func get_row_data():
+	return _datas
