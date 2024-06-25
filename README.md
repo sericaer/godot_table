@@ -42,6 +42,12 @@ C#
 
 
 
+### known issues
+
+no real-time preview for color changes
+
+
+
 ### demo
 
 [https://github.com/sericaer/godot_table_demo]: 
