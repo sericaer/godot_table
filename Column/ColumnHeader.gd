@@ -7,13 +7,13 @@ signal COLUMN_SORT(value)
 enum SORT_STATE {NULL=-1, DESCEND=0, ASCEND=1}
 
 # ................... Export Shared Variables ..................
-export var index = -1
-export var sortState = SORT_STATE.NULL
+@export var index = -1
+@export var sortState = SORT_STATE.NULL
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_ChangeSortState(SORT_STATE.NULL)
-	connect("pressed", self, "_on_Button_pressed")
+	connect("pressed",Callable(self,"_on_Button_pressed"))
 
 func _on_Button_pressed():
 	match sortState:

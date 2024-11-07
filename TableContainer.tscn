@@ -1,64 +1,56 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://bdu0j6qpxa7x0"]
 
-[ext_resource path="res://addons/godot_table/HeaderContainer.gd" type="Script" id=1]
-[ext_resource path="res://addons/godot_table/TableContainer.gd" type="Script" id=2]
-[ext_resource path="res://addons/godot_table/DataContainer.gd" type="Script" id=3]
-[ext_resource path="res://addons/godot_table/RowButtonContainer.gd" type="Script" id=4]
+[ext_resource type="Script" path="res://addons/godot_table/HeaderContainer.gd" id="1"]
+[ext_resource type="Script" path="res://addons/godot_table/TableContainer.gd" id="2"]
+[ext_resource type="Script" path="res://addons/godot_table/DataContainer.gd" id="3"]
+[ext_resource type="Script" path="res://addons/godot_table/RowButtonContainer.gd" id="4"]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hpsnu"]
+bg_color = Color(0.11, 0.11, 0.11, 1)
 
 [node name="TableContainer" type="VBoxContainer"]
-margin_left = 239.652
-margin_top = 268.161
-margin_right = 279.652
-margin_bottom = 308.161
-custom_constants/separation = 0
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 239.652
+offset_top = 268.161
+offset_right = 279.652
+offset_bottom = 308.161
+theme_override_constants/separation = -1
+script = ExtResource("2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-margin_right = 40.0
-custom_constants/separation = 0
+layout_mode = 2
 
 [node name="HeaderContainer" type="GridContainer" parent="HBoxContainer"]
-margin_right = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
-custom_constants/vseparation = -1
-custom_constants/hseparation = -1
-script = ExtResource( 1 )
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+script = ExtResource("1")
 
 [node name="PanelPlus" type="Panel" parent="HBoxContainer"]
-self_modulate = Color( 1, 1, 1, 0 )
-margin_left = 40.0
-margin_right = 40.0
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 2
 size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="ScrollContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("StyleBoxFlat_hpsnu")
 
 [node name="RowButtonContainer" type="VBoxContainer" parent="ScrollContainer/PanelContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-custom_constants/separation = 0
-script = ExtResource( 4 )
+layout_mode = 2
+theme_override_constants/separation = 0
+script = ExtResource("4")
 
 [node name="DataContainer" type="GridContainer" parent="ScrollContainer/PanelContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/vseparation = -1
-custom_constants/hseparation = -1
-script = ExtResource( 3 )
+mouse_filter = 2
+theme_override_constants/h_separation = -1
+theme_override_constants/v_separation = -1
+script = ExtResource("3")
